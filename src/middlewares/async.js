@@ -9,11 +9,13 @@ export default function({ dispatch }) {
 		action.payload.then(function(response) {
 			// create a new action with the old type, but replace the promise with the response data
 			const newAction = { ...action, payload: response };
+			// sends the action to the top most middleware, runs the whole cycle of middlewares (stack of middlewares)
+			dispatch(newAction);
 		});
-		// sends the action to the top most middleware, runs the whole cycle of middlewares (stack of middlewares)
-		dispatch(newAction);
 	};
 }
+
+// dispatch => top of the stack of middlewares
 
 // step 1
 // export default function({ dispatch }) {
